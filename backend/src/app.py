@@ -19,12 +19,21 @@ db = firestore.client()
 
 app = Flask(__name__)
 # method to get users from firestore
-@app.route("/firebase/get" , methods=["GET"])
+@app.route("/getUsers" , methods=["GET"])
 def firebase_get():
     docs = db.collection("users").get()  # returns a list of documents
     if not docs:
         return jsonify({"error": "No documents found"}), 404
     return jsonify([doc.to_dict() for doc in docs])
+
+@app.route("/addUsers", methods=["POST"])
+def firebase_set():
+    user_input = request.form.get('my_data')
+    # Create the dictionary to store
+    data = {"content": user_input}
+    # Use .add() on the collection
+    db.collection("users").add(data)
+    return jsonify({"message": "User added successfully"}), 201
 
 if __name__ == "__main__":
     app.run(port=8080,debug=True)
