@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-cred = credentials.Certificate("path/to/serviceAccountKey.json")
+cred = credentials.Certificate("../backend-workshop-2026-serviceaccountkey.json")
 firebase_admin.initialize_app(cred)
 
 # intialize database
