@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, render_template
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -16,8 +17,9 @@ if not firebase_admin._apps: #if firebase has not been initialized yet
 
 db = firestore.client()
 
-
-app = Flask(__name__, template_folder="templates")
+# frontend folder at project root
+_frontend = Path(__file__).resolve().parent.parent.parent / "frontend"
+app = Flask(__name__, template_folder=str(_frontend))
 
 
 @app.route("/")
