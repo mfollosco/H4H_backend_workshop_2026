@@ -11,7 +11,6 @@ if not firebase_admin._apps: #if firebase has not been initialized yet
     firebase_admin.initialize_app(cred) #python app connects to firebase with the credentials
 
 # intialize database
-firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 app = Flask(__name__)
