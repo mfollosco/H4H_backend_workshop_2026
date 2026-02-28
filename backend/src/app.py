@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 import os
 
 from dotenv import load_dotenv
@@ -17,7 +17,14 @@ if not firebase_admin._apps: #if firebase has not been initialized yet
 db = firestore.client()
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
 # method to get users from firestore
 @app.route("/getUsers" , methods=["GET"])
 def firebase_get():
