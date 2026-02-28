@@ -3,8 +3,12 @@ from flask import Flask, jsonify, request
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-cred = credentials.Certificate("../backend-workshop-2026-serviceaccountkey.json")
-firebase_admin.initialize_app(cred)
+cred_path = os.environ.get("FIREBASE_CREDENTIALS")
+
+if not firebase_admin._apps: #if firebase has not been initialized yet
+
+    cred = credentials.Certificate(cred_path) #load credentials
+    firebase_admin.initialize_app(cred) #python app connects to firebase with the credentials
 
 # intialize database
 firebase_admin.initialize_app(cred)
